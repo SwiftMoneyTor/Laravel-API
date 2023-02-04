@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Authentication\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\inventory\inventoryController;
+use App\Http\Controllers\Inventory\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/inventory/fetch', [inventoryController::class, 'fetch']);
-Route::controller(AuthController::class)->group(function () {
+Route::middleware('auth:api')->post('/inventory/fetch', [InventoryController::class, 'fetch']);
+Route::controller(AuthenticationController::class)->group(function () {
     Route::post('auth/login', 'login');
     Route::post('auth/register', 'register');
     Route::post('auth/logout', 'logout');
