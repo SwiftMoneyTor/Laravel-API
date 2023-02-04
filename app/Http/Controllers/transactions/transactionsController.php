@@ -15,9 +15,9 @@ class TransactionsController extends Controller
         return response()->json(['success' => true, 'responsedata' => (array) $results]);
     }
 
-    public function add()
+    public function add(Request $request)
     {
-        DB::insert('INSERT INTO () VALUES(?,?,?)', ['']);
+        DB::insert('INSERT INTO transactions (transaction,items_array,transaction_total,merchant_id) VALUES(?,?,?,?)', [$request->input('transaction'), $request->input('items_array'), $request->input('transaction_total'), $request->input('merchant_id')]);
         return response()->json([DB::getPdo()->lastInsertId()]);
     }
 
