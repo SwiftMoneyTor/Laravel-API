@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Inventory;
+namespace App\Http\Controllers\ItemsInventory;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Logs\LogsController;
 
-class InventoryController extends Controller
+class ItemsInventoryController extends Controller
 {
     //
     public function fetch()
