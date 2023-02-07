@@ -3,7 +3,7 @@
 use App\Http\Controllers\Authentication\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Inventory\InventoryController;
+use App\Http\Controllers\ItemsInventory\ItemsInventoryController;
 use App\Http\Controllers\Transaction\TransactionController;
 
 /*
@@ -24,7 +24,7 @@ Route::middleware('auth:api')->controller(TransactionController::class)->group(f
     Route::post('transactions/fetch', 'fetch');
     Route::post('transactions/add', 'add');
 });
-Route::middleware('auth:api')->controller(InventoryController::class)->group(function () {
+Route::middleware('auth:api')->controller(ItemsInventoryController::class)->group(function () {
     Route::post('inventory/fetch', 'fetch');
     Route::post('inventory/add', 'add');
 });
