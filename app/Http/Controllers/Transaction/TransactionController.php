@@ -19,15 +19,11 @@ class TransactionController extends Controller
     public function add(Request $request)
     {
         DB::insert('INSERT INTO transactions (transaction,items_array,transaction_total,merchant_id) VALUES(?,?,?,?)', [$request->input('transaction'), json_encode($request->input('items_array')), $request->input('transaction_total'), $request->input('merchant_id')]);
-        (new LogsController())->add(['user_id' => 1, 'log_details' => 'added new transaction', 'id' => DB::getPdo()->lastInsertId(), 'table' => 'transactions']);
-        return response()->json(['success' => true, 'response_row_id' => DB::getPdo()->lastInsertId()]);
+        $log_id = (new LogsController())->add(['user_id' => 1, 'log_details' => 'added new transaction', 'id' => DB::getPdo()->lastInsertId(), 'table' => 'transactions']);
+        return response()->json(['success' => true, 'response_row_id' => DB::getPdo()->lastInsertId(), 'log_id' => $log_id['log_id']]);
     }
 
     public function edit()
-    {
-    }
-
-    public function delete()
     {
     }
 }
