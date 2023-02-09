@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Authentication\AuthenticationController;
+use App\Http\Controllers\Category\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemsInventory\ItemsInventoryController;
@@ -28,6 +29,10 @@ Route::middleware('auth:api')->controller(TransactionController::class)->group(f
 Route::middleware('auth:api')->controller(ProductsController::class)->group(function () {
     Route::post('products/add', 'add');
     Route::post('products/fetch', 'fetch');
+});
+Route::middleware('auth:api')->controller(CategoryController::class)->group(function () {
+    Route::post('category/add', 'add');
+    Route::post('categories/fetch', 'fetch');
 });
 Route::middleware('auth:api')->controller(ItemsInventoryController::class)->group(function () {
     Route::post('inventory/fetch', 'fetch');
