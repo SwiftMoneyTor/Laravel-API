@@ -13,8 +13,8 @@ class ProductsController extends Controller
     //
     public function add(Request $request)
     {
-        if ($request->hasFile(key: 'product_image')) {
-            $file = $request->file(key: 'product_image');
+        if ($request->hasFile('product_image')) {
+            $file = $request->file('product_image');
             $filename = $file->getClientOriginalName();
             $file->storeAs('product_images', $filename, 's3');
         }
