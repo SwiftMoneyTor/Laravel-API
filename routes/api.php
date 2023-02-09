@@ -27,6 +27,7 @@ Route::middleware('auth:api')->controller(TransactionController::class)->group(f
 });
 Route::middleware('auth:api')->controller(ProductsController::class)->group(function () {
     Route::post('products/add', 'add');
+    Route::post('products/fetch', 'fetch');
 });
 Route::middleware('auth:api')->controller(ItemsInventoryController::class)->group(function () {
     Route::post('inventory/fetch', 'fetch');
