@@ -19,11 +19,16 @@ class ProductsController extends Controller
             $file->storeAs('product_images', $filename, 's3');
         }
         DB::insert('INSERT INTO products (product_name,category_id,product_image,product_price) VALUES (?,?,?,?)', [$request->input('product_name'), $request->input('category_id'), Storage::disk('s3')->url('product_images/' . $request->file('product_image')->getClientOriginalName()), $request->input('product_price')]);
-        return 'success';
+        return response()->json(['success' => true, 'row' => DB::getPdo()->lastInsertId()]);
     }
     public function fetch()
     {
         $results =   DB::select('SELECT * FROM products');
         return response()->json(['success' => true, 'responsedata' => (array)$results]);
+    }
+    public function fetchSingleProduct($id)
+    {
+        $res = DB::select('SELECT * FROM products where product_id = ?', [$id]);
+        return (array)$res[0];
     }
 }
