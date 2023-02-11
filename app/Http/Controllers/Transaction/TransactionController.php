@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Transaction;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Logs\LogsController;
 use App\Http\Controllers\Products\ProductsController;
+use App\Http\Controllers\UserProfile\UserProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,6 +19,7 @@ class TransactionController extends Controller
         $tempItem = [];
         foreach ($res as $r) {
             $r->items_array = json_decode($r->items_array, true);
+            $r->merchant_id=(new UserProfileController())->fetchUser($r->merchant_id)[0];
             foreach ($r->items_array as $item) {
                 $item['product_details'] = (new ProductsController())->fetchSingleProduct($item['id']);
                 $tempItem[] = $item;
