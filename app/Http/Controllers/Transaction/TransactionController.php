@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Transaction;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Logs\LogsController;
+use App\Http\Controllers\Products\ProductsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,8 +13,20 @@ class TransactionController extends Controller
     //
     public function fetch()
     {
-        $results =  DB::select('SELECT * FROM transactions');
-        return response()->json(['success' => true, 'responsedata' => (array) $results]);
+        $results = DB::select('SELECT * FROM transactions');
+        $res = (array)$results;
+        $tempItem = [];
+        foreach ($res as $r) {
+            $r->items_array = json_decode($r->items_array, true);
+            foreach ($r->items_array as $item) {
+                $item['product_details'] = (new ProductsController())->fetchSingleProduct($item['id']);
+                $tempItem[] = $item;
+            }
+            $r->items_array = $tempItem;
+            $tempItem = [];
+        }
+
+        return response()->json(['success' => true, 'responsedata' => $res]);
     }
 
     public function add(Request $request)

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemsInventory\ItemsInventoryController;
 use App\Http\Controllers\Products\ProductsController;
 use App\Http\Controllers\Transaction\TransactionController;
+use App\Http\Controllers\UserProfile\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,12 @@ Route::middleware('auth:api')->controller(CategoryController::class)->group(func
 Route::middleware('auth:api')->controller(ItemsInventoryController::class)->group(function () {
     Route::post('inventory/fetch', 'fetch');
     Route::post('inventory/add', 'add');
+});
+Route::middleware('auth:api')->controller(UserProfileController::class)->group(function () {
+    Route::post('profile/add', 'addNewProfile');
+    Route::put('account/update', 'updateAcc');
+    Route::get('profile/fetch', 'retrieveUserInfo');
+    Route::put('profile/update', 'editProfile');
 });
 Route::controller(AuthenticationController::class)->group(function () {
     Route::post('auth/login', 'login');
