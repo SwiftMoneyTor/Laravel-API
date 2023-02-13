@@ -42,8 +42,10 @@ Route::middleware('auth:api')->controller(ItemsInventoryController::class)->grou
 Route::middleware('auth:api')->controller(UserProfileController::class)->group(function () {
     Route::post('profile/add', 'addNewProfile');
     Route::put('account/update', 'updateAcc');
-    Route::get('profile/fetch', 'retrieveUserInfo');
+    Route::post('profile/fetch', 'retrieveUserInfo');
     Route::put('profile/update', 'editProfile');
+    Route::post('profile/update/image', 'uploadImage');
+    Route::post('profile/fetch/image', 'fetchDisplayImage');
 });
 Route::controller(AuthenticationController::class)->group(function () {
     Route::post('auth/login', 'login');
