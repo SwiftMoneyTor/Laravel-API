@@ -96,7 +96,7 @@ class UserProfileController extends Controller
         }
 
         DB::table('userprofile')->where('users_id', $request->input('user_id'))->update(array('display_image' => Storage::disk('s3')->url('display_images/' . $request->file('display_image')->getClientOriginalName())));
-        return response()->json(['success' => true,'responsedata'=> Storage::disk('s3')->url('display_images/' . $request->file('display_image')->getClientOriginalName())]);
+        return response()->json(['success' => true, 'responsedata' => Storage::disk('s3')->url('display_images/' . $request->file('display_image')->getClientOriginalName())]);
     }
 
     public function editProfile(Request $req, Response $res)
@@ -127,5 +127,15 @@ class UserProfileController extends Controller
     {
         $result = DB::select('SELECT * FROM users WHERE id=?', [$id]);
         return (array)$result[0]->name;
+    }
+    public function fetchDisplayImage(Request $request)
+    {
+        $result = DB::select('SELECT display_image FROM userprofile WHERE users_id=?', [$request->input('user_id')]);
+        if (count($result) > 1)
+            $responsedata = ['success' => true, 'responsedata' => (array)$result[0]];
+        else
+            $responsedata = ['error' => true];
+
+        return response()->json($responsedata);
     }
 }

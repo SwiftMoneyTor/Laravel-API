@@ -45,6 +45,7 @@ Route::middleware('auth:api')->controller(UserProfileController::class)->group(f
     Route::post('profile/fetch', 'retrieveUserInfo');
     Route::put('profile/update', 'editProfile');
     Route::post('profile/update/image', 'uploadImage');
+    Route::post('profile/fetch/image', 'fetchDisplayImage');
 });
 Route::controller(AuthenticationController::class)->group(function () {
     Route::post('auth/login', 'login');
