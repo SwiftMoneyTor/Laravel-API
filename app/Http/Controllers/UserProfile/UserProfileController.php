@@ -134,7 +134,7 @@ class UserProfileController extends Controller
         if (count($result) > 1)
             $responsedata = ['success' => true, 'responsedata' => (array)$result[0]];
         else
-            $responsedata = ['error' => true];
+            $responsedata = ['success' => false];
 
         return response()->json($responsedata);
     }
